@@ -33,6 +33,7 @@
 
 #include "Pinout.h"
 
+
 // ----------------------------------------------------------------------------
 //
 // Standalone STM32F0 empty sample (trace via NONE).
@@ -49,6 +50,7 @@
 // Sample pragmas to cope with warnings. Please note the related line at
 // the end of this function, used to pop the compiler diagnostics status.
 
+
 //#pragma GCC diagnostic push
 //#pragma GCC diagnostic ignored "-Wunused-parameter"
 //#pragma GCC diagnostic ignored "-Wmissing-declarations"
@@ -57,11 +59,15 @@
 
 
 int main(int argc, char* argv[])
+
 {
   // At this stage the system clock should have already been configured
   // at high speed.
 
+
 	Pinout::init();
+
+
 
   // Infinite loop
   while (1)
@@ -70,6 +76,8 @@ int main(int argc, char* argv[])
     }
 }
 
+
 //#pragma GCC diagnostic pop
+
 
 // ----------------------------------------------------------------------------
