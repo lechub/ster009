@@ -66,6 +66,8 @@ private:
 
 	static Gpio * gpioTab[ILOSC_WYJSC];
 
+	static Gpio irRecv(GPIOE,9);
+
 public:
 
 	static void init(){

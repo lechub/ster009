@@ -70,8 +70,8 @@ int main(int argc, char* argv[])
 
 
   // Infinite loop
-  while (1)
-    {
+  while (true){
+
        // Add your code here.
     }
 }
