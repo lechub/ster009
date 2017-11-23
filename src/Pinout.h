@@ -52,10 +52,21 @@ public:
 					, Gpio::GpioPuPd::PullUp, Gpio::GpioSpeed::LowSpeed);
 		}
 
+		buzzer.setup(Gpio::GpioMode::OUTPUT, Gpio::GpioOType::PushPull
+							, Gpio::GpioPuPd::NoPull, Gpio::GpioSpeed::LowSpeed);
+
+		rsDir.setup(Gpio::GpioMode::OUTPUT, Gpio::GpioOType::PushPull
+				, Gpio::GpioPuPd::NoPull, Gpio::GpioSpeed::LowSpeed);
+
+		infraRed.setup(Gpio::GpioMode::INPUT, Gpio::GpioOType::NoMatter
+				, Gpio::GpioPuPd::PullUp, Gpio::GpioSpeed::MaximumSpeed);
 	}
 
 	static Gpio * getWyj(uint8_t nr){ return nr < ILOSC_WYJSC ? wyjsciaTab[nr] : wyjsciaTab[0]; }
 	static Gpio * getWej(uint8_t nr){ return nr < ILOSC_KEYS ? keyTab[nr] : keyTab[0]; }
+
+	static void buzzerSet(bool newstate){ buzzer.pinSet(newstate); }
+
 
 
 };
