@@ -31,7 +31,8 @@
 #include <stdlib.h>
 #include "diag/Trace.h"
 
-#include "Fifo.h"
+#include "Pinout.h"
+
 
 // ----------------------------------------------------------------------------
 //
@@ -48,22 +49,25 @@
 
 // Sample pragmas to cope with warnings. Please note the related line at
 // the end of this function, used to pop the compiler diagnostics status.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wmissing-declarations"
-#pragma GCC diagnostic ignored "-Wreturn-type"
 
 
-static constexpr uint16_t ILOSC_WEJSC = 32;
+//#pragma GCC diagnostic push
+//#pragma GCC diagnostic ignored "-Wunused-parameter"
+//#pragma GCC diagnostic ignored "-Wmissing-declarations"
+//#pragma GCC diagnostic ignored "-Wreturn-type"
 
-Fifo * Fifo[ILOSC_WEJSC];
 
 
-int
-main(int argc, char* argv[])
+int main(int argc, char* argv[])
+
 {
   // At this stage the system clock should have already been configured
   // at high speed.
+
+
+	Pinout::init();
+
+
 
   // Infinite loop
   while (1)
@@ -72,6 +76,8 @@ main(int argc, char* argv[])
     }
 }
 
-#pragma GCC diagnostic pop
+
+//#pragma GCC diagnostic pop
+
 
 // ----------------------------------------------------------------------------
