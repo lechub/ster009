@@ -40,10 +40,28 @@
 	 Gpio Pinout::wy31 = Gpio(GPIOB, 4);
 	 Gpio Pinout::wy32 = Gpio(GPIOB, 3);
 
-	 Gpio * Pinout::gpioTab[ILOSC_WYJSC] = {
+	 Gpio Pinout::key1 = Gpio(GPIOB, 11);
+	 Gpio Pinout::key2 = Gpio(GPIOB, 10);
+	 Gpio Pinout::key3 = Gpio(GPIOE, 15);
+	 Gpio Pinout::key4 = Gpio(GPIOE, 14);
+	 Gpio Pinout::key5 = Gpio(GPIOE, 13);
+	 Gpio Pinout::key6 = Gpio(GPIOE, 12);
+	 Gpio Pinout::key7 = Gpio(GPIOE, 11);
+	 Gpio Pinout::key8 = Gpio(GPIOE, 10);
+
+	 Gpio Pinout::infraRed = Gpio(GPIOE, 9);
+	 Gpio Pinout::buzzer = Gpio(GPIOE, 8);
+	 Gpio Pinout::rsDir = Gpio(GPIOD, 10);
+
+	 Gpio * Pinout::wyjsciaTab[ILOSC_WYJSC] = {
 			&wy1, &wy2, &wy3, &wy4, &wy5, &wy6, &wy7, &wy8, &wy9, &wy10,
 			&wy11, &wy12, &wy13, &wy14, &wy15, &wy16, &wy17, &wy18, &wy19, &wy20,
 			&wy21, &wy22, &wy23, &wy24, &wy25, &wy26, &wy27, &wy28, &wy29, &wy30,
 			&wy31, &wy32
 	 };
+
+	 Gpio * Pinout::keyTab[ILOSC_KEYS] = {
+			&key1, &key2, &key3, &key4, &key5, &key6, &key7, &key8
+	 };
+
 
