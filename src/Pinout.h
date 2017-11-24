@@ -34,6 +34,10 @@ private:
 	static Gpio * wyjsciaTab[ILOSC_WYJSC];
 	static Gpio * keyTab[ILOSC_KEYS];
 
+	static Gpio * gpioTab[ILOSC_WYJSC];
+
+	static Gpio irRecv(GPIOE,9);
+
 public:
 
 	static void init(){
@@ -66,7 +70,6 @@ public:
 	static Gpio * getWej(uint8_t nr){ return nr < ILOSC_KEYS ? keyTab[nr] : keyTab[0]; }
 
 	static void buzzerSet(bool newstate){ buzzer.pinSet(newstate); }
-
 
 
 };
