@@ -9,9 +9,15 @@
 #define IR1838T_H_
 
 #include <stdint.h>
+#include "Gpio.h"
+#include "Hardware.h"
+#include "Pinout.h"
+
 
 class IR1838T {
 
+private:
+	Gpio * irGpio;
 public:
 
 	static constexpr uint32_t LEADER_BURST_TIME_US = 9000;
@@ -20,8 +26,12 @@ public:
 	static constexpr uint32_t BIT_OFF_1_TIME_US = 1675;
 	static constexpr uint32_t BIT_OFF_0_TIME_US = 562;
 
-	IR1838T(){};
+	IR1838T(Gpio * ir_gpio){ irGpio = ir_gpio; };
 	virtual ~IR1838T();
+
+	void init(){
+
+	}
 };
 
 
@@ -49,7 +59,7 @@ void irqRcv(){
 	bool pinState = Pinout::getIRLevel();
 	if (pinState != lastPinState){
 		lastPinState = pinState;
-		uint32_t timeUs = getTimeUs();
+		uint32_t timeUs = Hardware::getCounter_uS();
 		uint32_t intervalUs = timeUs - lastTimeStampUs;
 		CodeState state = irDataIRQ.state;
 		if (pinState){	// zbocze narastajace

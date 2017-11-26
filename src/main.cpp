@@ -32,6 +32,7 @@
 #include "diag/Trace.h"
 
 #include "Pinout.h"
+#include "Hardware.h"
 
 
 // ----------------------------------------------------------------------------
@@ -65,6 +66,7 @@ int main(int argc, char* argv[])
   // at high speed.
 
 
+	Hardware::init();
 	Pinout::init();
 
 

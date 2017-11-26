@@ -6,13 +6,16 @@
  */
 
 #include "IR1838T.h"
+#include "Pinout.h"
 
-IR1838T::IR1838T() {
-	// TODO Auto-generated constructor stub
 
-}
 
-IR1838T::~IR1838T() {
-	// TODO Auto-generated destructor stub
-}
+//IR1838T::IR1838T() {
+//	// TODO Auto-generated constructor stub
+//
+//}
+//
+//IR1838T::~IR1838T() {
+//	// TODO Auto-generated destructor stub
+//}
 
