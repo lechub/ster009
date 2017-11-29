@@ -19,11 +19,13 @@ public:
 	static constexpr uint16_t ILOSC_WYJSC = 32;
 	static constexpr uint16_t ILOSC_KEYS = 8;
 
+
 private:
 	static Gpio wy1, wy2, wy3, wy4, wy5, wy6, wy7, wy8, wy9, wy10,
 	wy11, wy12, wy13, wy14, wy15, wy16, wy17, wy18, wy19, wy20,
 	wy21, wy22, wy23, wy24, wy25, wy26, wy27, wy28, wy29, wy30,
 	wy31, wy32;
+
 
 	static Gpio key1, key2, key3, key4, key5, key6, key7, key8;
 
@@ -33,10 +35,6 @@ private:
 
 	static Gpio * wyjsciaTab[ILOSC_WYJSC];
 	static Gpio * keyTab[ILOSC_KEYS];
-
-	static Gpio * gpioTab[ILOSC_WYJSC];
-
-	static Gpio irRecv(GPIOE,9);
 
 public:
 
@@ -70,6 +68,20 @@ public:
 	static Gpio * getWej(uint8_t nr){ return nr < ILOSC_KEYS ? keyTab[nr] : keyTab[0]; }
 
 	static void buzzerSet(bool newstate){ buzzer.pinSet(newstate); }
+
+	static inline bool getIRLevel(){ return infraRed.getInputValue(); }
+
+	static void setWyjscie(uint8_t nr, bool value){
+		Gpio * wyj = getWyj(nr);
+		//bool state = wyj->getOutputValue();
+		wyj->pinSet(value);
+	}
+
+	static void toggleWyjscie(uint8_t nr){
+		Gpio * wyj = getWyj(nr);
+		bool state = wyj->getOutputValue();
+		wyj->pinSet(!state);
+	}
 
 
 };

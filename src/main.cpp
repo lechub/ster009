@@ -32,6 +32,8 @@
 #include "diag/Trace.h"
 
 #include "Pinout.h"
+#include "IR1838T.h"
+#include "Pilot.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -54,21 +56,28 @@
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
+IR1838T ir = IR1838T();
+Pilot pilot = Pilot();
 
 
-int main(int argc, char* argv[])
-
-{
+int main(int argc, char* argv[]){
   // At this stage the system clock should have already been configured
   // at high speed.
 
+
 	Pinout::init();
+	Hardware::init();
 
-  // Infinite loop
-  while (1)
-    {
+  while (true) {
 
-       // Add your code here.
+	  ir.irqRcv();	// obrobka czytanego pilota
+	  int16_t symbol = ir.getSymbol();
+	  if (symbol > 0){
+		  char znak = pilot.symboltToChar(symbol);
+		  //
+		  Pinout::toggleWyjscie(uint8_t(znak-'0'));
+	  }
+
     }
 }
 
