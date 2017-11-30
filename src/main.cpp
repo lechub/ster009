@@ -34,6 +34,7 @@
 #include "Pinout.h"
 #include "IR1838T.h"
 #include "Pilot.h"
+#include "QuickTask.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -60,15 +61,34 @@ IR1838T ir = IR1838T();
 Pilot pilot = Pilot();
 
 
+void dbgFunc(){
+	static uint32_t czas;
+	uint32_t czas2 = Hardware::getCounter_uS();
+	uint32_t dt = czas2 - czas;
+	czas = Hardware::getCounter_uS();
+
+	static bool state = false;
+	state = !state;
+	Pinout::buzzerSet(state);
+}
+QuickTask dbgTask = QuickTask(QuickTask::QTType::QT_ONCE, dbgFunc, 5000);
+
+
 int main(int argc, char* argv[]){
   // At this stage the system clock should have already been configured
   // at high speed.
 
 
+
 	Pinout::init();
 	Hardware::init();
 
+
+
+
   while (true) {
+
+	  QuickTask::runQuickTasks();
 
 	  ir.irqRcv();	// obrobka czytanego pilota
 	  int16_t symbol = ir.getSymbol();

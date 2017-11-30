@@ -67,6 +67,7 @@ public:
 			lastPinState = pinState;
 			uint32_t timeUs = Hardware::getCounter_uS();
 			uint32_t intervalUs = timeUs - lastTimeStampUs;
+			lastTimeStampUs = timeUs;
 			CodeState state = irDataIRQ.state;
 			if (pinState){	// zbocze narastajace
 				switch(state){

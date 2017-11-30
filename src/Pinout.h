@@ -47,18 +47,21 @@ public:
 		for (uint8_t i = 0; i < ILOSC_WYJSC; i++){
 			wyjsciaTab[i]->setup(Gpio::GpioMode::OUTPUT, Gpio::GpioOType::PushPull
 					, Gpio::GpioPuPd::NoPull, Gpio::GpioSpeed::LowSpeed);
+			wyjsciaTab[i]->pinSetDown();
 		}
 
 		for (uint8_t i = 0; i < ILOSC_KEYS; i++){
-			wyjsciaTab[i]->setup(Gpio::GpioMode::INPUT, Gpio::GpioOType::NoMatter
+			keyTab[i]->setup(Gpio::GpioMode::INPUT, Gpio::GpioOType::NoMatter
 					, Gpio::GpioPuPd::PullUp, Gpio::GpioSpeed::LowSpeed);
 		}
 
 		buzzer.setup(Gpio::GpioMode::OUTPUT, Gpio::GpioOType::PushPull
 							, Gpio::GpioPuPd::NoPull, Gpio::GpioSpeed::LowSpeed);
+		buzzer.pinSetDown();
 
 		rsDir.setup(Gpio::GpioMode::OUTPUT, Gpio::GpioOType::PushPull
 				, Gpio::GpioPuPd::NoPull, Gpio::GpioSpeed::LowSpeed);
+		rsDir.pinSetDown();
 
 		infraRed.setup(Gpio::GpioMode::INPUT, Gpio::GpioOType::NoMatter
 				, Gpio::GpioPuPd::PullUp, Gpio::GpioSpeed::MaximumSpeed);
