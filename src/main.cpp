@@ -60,21 +60,21 @@
 
 IR1838T ir = IR1838T();
 Pilot pilot = Pilot();
-Sygnalizacja sygnalizacja = Sygnalizacja();
+Sygnalizacja * sygnal;
 
 
-void dbgFunc(){
-	static uint32_t czas;
-	uint32_t czas2 = Hardware::getCounter_uS();
-	uint32_t dt = czas2 - czas;
-	czas = Hardware::getCounter_uS();
-
-	static bool state = false;
-	state = !state;
-	Pinout::buzzerSet(state);
-}
-QuickTask dbgTask = QuickTask(QuickTask::QTType::QT_ONCE, dbgFunc, 5000);
-
+//void dbgFunc(){
+//	static uint32_t czas;
+//	uint32_t czas2 = Hardware::getCounter_uS();
+//	uint32_t dt = czas2 - czas;
+//	czas = Hardware::getCounter_uS();
+//
+//	static bool state = false;
+//	state = !state;
+//	Pinout::buzzerSet(state);
+//}
+//QuickTask dbgTask = QuickTask(QuickTask::QTType::QT_ONCE, dbgFunc, 5000);
+//
 
 
 
@@ -87,10 +87,7 @@ int main(int argc, char* argv[]){
 
 	Pinout::init();
 	Hardware::init();
-	sygnalizacja.init(Pinout::getBuzzer());
-
-
-
+	sygnal = Sygnalizacja::getInstance(Pinout::getBuzzer());
 
   while (true) {
 
@@ -99,7 +96,7 @@ int main(int argc, char* argv[]){
 
 	  int16_t symbol = ir.getSymbol();
 	  if (symbol > 0){
-		  sygnalizacja.beep(300);
+		  sygnal->beep(300);
 		  char znak = pilot.symboltToChar(symbol);
 		  //
 		  Pinout::toggleWyjscie(uint8_t(znak-'0'));
@@ -107,6 +104,10 @@ int main(int argc, char* argv[]){
 
     }
 }
+
+
+
+
 
 #pragma GCC diagnostic pop
 

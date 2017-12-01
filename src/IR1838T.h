@@ -81,8 +81,8 @@ public:
 				switch(state){
 				case CodeState::SILENCE: break;		// jakis blad, albo cos
 				case CodeState::LEADER:
-					if ((intervalUs > IR1838T::LEADER_BURST_TIME_US - 3000)
-							&&(intervalUs < IR1838T::LEADER_BURST_TIME_US + 3000)){		// burst zmierzony miedzy 6 a 12 ms?
+					if ((intervalUs > (IR1838T::LEADER_BURST_TIME_US - 3000))
+							&&(intervalUs < (IR1838T::LEADER_BURST_TIME_US + 3000))){		// burst zmierzony miedzy 6 a 12 ms?
 						ir.state = CodeState::SPACE1;	// prawidlowo - bedzie przerwa
 					}else{
 						ir.state = CodeState::SILENCE;	// zla dlugosc bursta - powrot do SILENCE
@@ -90,17 +90,17 @@ public:
 					break;
 				case CodeState::SPACE1: break;		//
 				case CodeState::DATA:
-					if (intervalUs > 2 * IR1838T::BIT_ON_TIME_US){	// czy dlugosc bitu wieksza niz 2 x prawidlowa?
+					if (intervalUs > (2 * IR1838T::BIT_ON_TIME_US)){	// czy dlugosc bitu wieksza niz 2 x prawidlowa?
 						ir.state = CodeState::SILENCE;	// za dlugo poczatek bitu to do SILENCE
 					}
-					if (ir.bitNr >= 32){ // przepisac
+					if (ir.bitNr >= 8){ // przepisac
 						uint8_t znak = uint8_t(ir.dataBits >> 8);
 						fifo.put(znak);
 						ir.state = CodeState::SILENCE;
 					}
 					break;
 				case CodeState::REPEAT:
-					if (intervalUs > 2 * IR1838T::BIT_ON_TIME_US){	// czy dlugosc bitu wieksza niz 2 x prawidlowa?
+					if (intervalUs > (2 * IR1838T::BIT_ON_TIME_US)){	// czy dlugosc bitu wieksza niz 2 x prawidlowa?
 						ir.state = CodeState::SILENCE;	// za dlugo poczatek bitu to do SILENCE
 					}
 					ir.repetitions++;
@@ -121,12 +121,12 @@ public:
 					break;
 				case CodeState::LEADER: break;
 				case CodeState::SPACE1:							// poczatek pierwszego bitu
-					if ((intervalUs < IR1838T::REPEAT_SPACE_TIME_US - 500)
-							||(intervalUs > IR1838T::BURST_SPACE_TIME_US + 1000)){
+					if ((intervalUs < (IR1838T::REPEAT_SPACE_TIME_US - 500))
+							||(intervalUs > (IR1838T::BURST_SPACE_TIME_US + 1000))){
 						ir.state = CodeState::SILENCE;		// zla dlugosc przerwy - powrot do SILENCE
 						break;
 					}
-					if (intervalUs > IR1838T::REPEAT_SPACE_TIME_US + 500){
+					if (intervalUs > (IR1838T::REPEAT_SPACE_TIME_US + 500)){
 						ir.state = CodeState::DATA;			// beda dane - zaczyna sie pierwszy bit
 						ir.bitNr = 0;									// reset znacznika bitow
 					}else{
@@ -134,13 +134,13 @@ public:
 					}
 					break;
 				case CodeState::DATA:								// skonczyl sie znacznik bitu
-					if (intervalUs > IR1838T::BIT_OFF_1_TIME_US *2){	// za dlugi odstep po znaczniku bitu - do SILENCE
+					if (intervalUs > (IR1838T::BIT_OFF_1_TIME_US *2)){	// za dlugi odstep po znaczniku bitu - do SILENCE
 						ir.state = CodeState::SILENCE;
 						break;
 					}
 					ir.dataBits <<= 1;	// przesuniecie w lewo dla nastepnego bitu
 					ir.bitNr++;					// licznik bitow +1
-					if (intervalUs > IR1838T::BIT_OFF_0_TIME_US + 200){ // wiecej niz 762?
+					if (intervalUs > (IR1838T::BIT_OFF_0_TIME_US + 200)){ // wiecej niz 762?
 						ir.dataBits |= 0b01;						// przyjeto bit = 1, wiec ustawienie najmlodszego
 					}
 					break;

@@ -20,10 +20,14 @@ private:
 public:
 	Sygnalizacja(){}
 	Sygnalizacja(Gpio * buzzerPtr){ init(buzzerPtr); }
+
+	static Sygnalizacja * getInstance(Gpio * buzzerPtr);
+
 	void init(Gpio * buzzerPtr){ buzzer = buzzerPtr; }
 
 	void beep(uint32_t timeMs);
 	void beep(){ beep(DEFAULT_BEEP_TIME_MS); }
+	void beepStop(){ buzzer->pinSetDown(); }
 };
 
 #endif /* SYGNALIZACJA_H_ */
