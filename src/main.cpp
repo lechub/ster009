@@ -35,6 +35,7 @@
 #include "IR1838T.h"
 #include "Pilot.h"
 #include "QuickTask.h"
+#include "Sygnalizacja.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -59,6 +60,7 @@
 
 IR1838T ir = IR1838T();
 Pilot pilot = Pilot();
+Sygnalizacja sygnalizacja = Sygnalizacja();
 
 
 void dbgFunc(){
@@ -74,6 +76,9 @@ void dbgFunc(){
 QuickTask dbgTask = QuickTask(QuickTask::QTType::QT_ONCE, dbgFunc, 5000);
 
 
+
+
+
 int main(int argc, char* argv[]){
   // At this stage the system clock should have already been configured
   // at high speed.
@@ -82,17 +87,19 @@ int main(int argc, char* argv[]){
 
 	Pinout::init();
 	Hardware::init();
+	sygnalizacja.init(Pinout::getBuzzer());
 
 
 
 
   while (true) {
 
+	  ir.irqRcv();	// obrobka czytanego pilota
 	  QuickTask::runQuickTasks();
 
-	  ir.irqRcv();	// obrobka czytanego pilota
 	  int16_t symbol = ir.getSymbol();
 	  if (symbol > 0){
+		  sygnalizacja.beep(300);
 		  char znak = pilot.symboltToChar(symbol);
 		  //
 		  Pinout::toggleWyjscie(uint8_t(znak-'0'));

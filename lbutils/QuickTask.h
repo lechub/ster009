@@ -47,7 +47,13 @@ public:
 	/// Ustawia timemeter na okreslona ilosc milisekund
 	/// Jesli nie istnieje, to dodaje go do kolejki timemeterow
 	uint8_t is_stopped(){return (timectr == 0)? true: false;};
-	void disable(){	flags = QuickTask::QT_DISABLED;	timectr = 0;}
+	void disable(){	flags = QuickTask::QTFlags::QT_DISABLED; timectr = 0;}
+	void startTask(QTType qtype, uint32_t miliseconds){
+		disable();
+		setIntervalMs(miliseconds);
+		type = qtype;
+		flags = QuickTask::QTFlags::QT_RUNNING;
+	}
 	void set_milis(const uint32_t mili){
 		timectr = mili;
 		flags = QuickTask::QT_RUNNING;}

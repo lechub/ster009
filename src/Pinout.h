@@ -86,7 +86,7 @@ public:
 		wyj->pinSet(!state);
 	}
 
-
+	static Gpio * getBuzzer(){ return &buzzer; }
 };
 
 #endif /* PINOUT_H_ */
