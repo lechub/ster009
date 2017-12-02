@@ -41,15 +41,13 @@ void QuickTask::runQuickTasks(){
 				tsk->timectr = tsk->updateValue;
 				tsk->flags = QuickTask::QT_RUNNING;
 				tsk->qCallback();// wykonanie zadania
-				//t->task();
 			}
-				break;
+			break;
 			case QuickTask::QT_ONCE:{
 				tsk->flags = QuickTask::QT_DISABLED;
 				tsk->qCallback();// wykonanie zadania
-				//t->task();
 			}
-				break;
+			break;
 			default:
 				break;
 			}
@@ -95,12 +93,12 @@ void SysTick_Handler(void) __attribute__ ((interrupt));
 #ifdef USE_HAL_DRIVER
 void HAL_SYSTICK_Callback(){
 #else
-void SysTick_Handler(void){
+	void SysTick_Handler(void){
 #endif
 
-	QuickTask::tick(QuickTask::DEFAULT_TICK_INTERVAL_MILIS);
-}
+		QuickTask::tick(QuickTask::DEFAULT_TICK_INTERVAL_MILIS);
+	}
 
-//-------------------------------------------------------
+	//-------------------------------------------------------
 
 

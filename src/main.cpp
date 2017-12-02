@@ -36,6 +36,7 @@
 #include "Pilot.h"
 #include "QuickTask.h"
 #include "Sygnalizacja.h"
+#include "Manager.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -60,7 +61,8 @@
 
 IR1838T ir = IR1838T();
 Pilot pilot = Pilot();
-Sygnalizacja * sygnal;
+Sygnalizacja * sygnal = nullptr;
+Manager * mngr = nullptr;
 
 
 //void dbgFunc(){
@@ -83,24 +85,20 @@ int main(int argc, char* argv[]){
   // At this stage the system clock should have already been configured
   // at high speed.
 
-
-
-	Pinout::init();
 	Hardware::init();
+	Pinout::init();
 	sygnal = Sygnalizacja::getInstance(Pinout::getBuzzer());
+	mngr = Manager::getInstance();
+	mngr->init(&pilot, &ir, sygnal);
+
+//	uint32_t aa = Hardware::getCounter_uS();
+//	QuickTask::activeDelay(1000);
+//	uint32_t diff = Hardware::getCounter_uS() - aa;
 
   while (true) {
 
 	  ir.irqRcv();	// obrobka czytanego pilota
 	  QuickTask::runQuickTasks();
-
-	  int16_t symbol = ir.getSymbol();
-	  if (symbol > 0){
-		  sygnal->beep(300);
-		  char znak = pilot.symboltToChar(symbol);
-		  //
-		  Pinout::toggleWyjscie(uint8_t(znak-'0'));
-	  }
 
     }
 }

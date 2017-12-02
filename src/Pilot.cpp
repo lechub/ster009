@@ -12,27 +12,28 @@ Pilot::Pilot() {
 
 }
 
-const uint8_t Pilot::numbers[10] = {
-		152,	// 0
-		162,	// 1
-		98,		// 2
-		226,	// 3
-		34,		// 4
-		2,		// 5
-		194,	// 6
-		224,	// 7
-		168,	// 8
-		144,	// 9
-};
 
-const uint8_t Pilot::symbols[8][2] = {
-		{NO_KEY, 0xfe},
-		{HASH, 104},
-		{ASTERISK, 176},
-		{'a', 24},		// up
-		{'l', 16},		// left
-		{'o', 56},		// ok
-		{'r', 90},		// right
-		{'d', 74},		// down
+const uint8_t Pilot::symbols[KEY_COUNT+1][2] = {
+		{'0', 22},
+		{'1', 12},
+		{'2', 24},
+		{'3', 94},
+		{'4', 8},
+		{'5', 28},
+		{'6', 90},
+		{'7', 66},
+		{'8', 82},
+		{'9', 74},
+		{ONOFF, 69},
+		{MENU, 71},
+		{TEST, 68},
+		{PLUS, 64},
+		{MINUS, 25},
+		{BACK, 67},
+		{FBACK, 7},
+		{FFORW, 9},
+		{PLAY, 21},
+		{CKEY, 13},
+		{NO_KEY, NO_KEY},
 };
 

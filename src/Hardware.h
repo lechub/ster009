@@ -31,6 +31,8 @@ public:
 		// zegar timera TIM2 - 32 bit
 		RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
 
+		TIM2->SR = 0;
+//		TIM2->PSC = (48 - 1);
 		// CK_INT -> zrodlo dla PK_PSC
 		// CK_PSC -> CNT counter
 
@@ -38,6 +40,7 @@ public:
 		TIM2->CNT = 0ul;	// licznik na zero
 		TIM2->CR1 = TIM_CR1_CEN;		//start licznika
 
+		TIM2->EGR |= TIM_EGR_UG;
 		// zegar timera TIM1
 		//		RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
 
@@ -61,7 +64,7 @@ public:
 		}
 	}
 
-	static inline uint32_t getCounter_uS(){ return TIM2->CNT; }
+	static inline volatile uint32_t getCounter_uS(){ return TIM2->CNT; }
 
 };
 

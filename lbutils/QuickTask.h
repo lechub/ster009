@@ -50,7 +50,7 @@ public:
 	void disable(){	flags = QuickTask::QTFlags::QT_DISABLED; timectr = 0;}
 	void startTask(QTType qtype, uint32_t miliseconds){
 		disable();
-		setIntervalMs(miliseconds);
+		timectr = miliseconds;
 		type = qtype;
 		flags = QuickTask::QTFlags::QT_RUNNING;
 	}
@@ -73,6 +73,10 @@ public:
 		return getTimeIntervalMilis(oldTime) > interval;
 	}
 
+	static void activeDelay(uint32_t miliseconds){
+		uint32_t now = getCounter();
+		while(getCounter() - now < miliseconds){}
+	}
 };
 
 extern QuickTask* taskbase;
