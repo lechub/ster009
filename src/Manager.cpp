@@ -16,7 +16,7 @@ void managerTask(){
 	mng->job();
 }
 
-QuickTask mngTask = QuickTask(QuickTask::QTType::QT_ONCE, managerTask, 50);
+QuickTask mngTask = QuickTask(QuickTask::QTType::QT_PERIODIC, managerTask, 50);
 
 
 Manager * Manager::getInstance(){ return &manager; }

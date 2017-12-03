@@ -37,6 +37,7 @@
 #include "QuickTask.h"
 #include "Sygnalizacja.h"
 #include "Manager.h"
+#include "Fifo.h"
 
 // ----------------------------------------------------------------------------
 //

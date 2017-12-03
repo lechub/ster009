@@ -75,7 +75,7 @@ public:
 
 		uint32_t timeUs = Hardware::getCounter_uS();
 		uint32_t intervalUs = timeUs - ir.lastTimeStampUs;
-		if (intervalUs > 1000000){ 				// jesli nic sie nie zdarzylo przez 1 sekunde to do SILENCE
+		if (intervalUs > 4 * BURST_SPACE_TIME_US){ 				// jesli nic sie nie zdarzylo przez 1 sekunde to do SILENCE
 			ir.state = CodeState::SILENCE;
 		}
 
@@ -107,11 +107,8 @@ public:
 						ir.state = CodeState::SILENCE;	// za dlugo poczatek bitu to do SILENCE
 					}
 					if (ir.bitNr >= 32){ // przepisac
-						uint16_t adres = ir.dataBits & 0x0ffff;
-						if (adres == 0xbf40){
-							uint8_t znak = uint8_t(ir.dataBits >> 16);
-							fifo.put(znak);
-						}
+						uint8_t znak = uint8_t(ir.dataBits >> 16);
+						fifo.put(znak);
 						ir.state = CodeState::SILENCE;
 						Log::event(100);
 					}
@@ -125,7 +122,7 @@ public:
 					}
 					ir.repetitions++;
 					if (ir.repetitions > 20){		// 108 ms miedzy RepeatCode x 15 = 2,16 sekundy
-						fifo.put(uint8_t(ir.dataBits>>16));
+						//			fifo.put(uint8_t(ir.dataBits>>16));
 						ir.repetitions = 0;
 						ir.state = CodeState::SILENCE;
 						Log::event(101);
